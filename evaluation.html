@@ -14,7 +14,7 @@ h1{font-size:18px;line-height:1.3;margin:0;color:#155b78}
 header p{font-size:12px;color:#506674;margin:3px 0 0}
 .fallback{font-size:12px;white-space:nowrap;color:#155b78}
 a:focus-visible,button:focus-visible{outline:3px solid #147da6;outline-offset:3px}
-main{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}
+main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0, 38fr) minmax(0, 62fr);gap:12px;padding:12px}
 .panel{min-width:0;min-height:0;display:flex;flex-direction:column;background:white;border:1px solid #cbdbe5;border-radius:8px;overflow:hidden}
 .panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 12px;flex:none;border-bottom:1px solid #dce5eb;background:#f9fbfc}
 h2{font-size:14px;margin:0;color:#155b78}
@@ -46,7 +46,7 @@ nav{display:none}
 <main>
  <section class="panel" id="framework-panel" aria-labelledby="framework-title">
   <div class="panel-head"><h2 id="framework-title">Interactive framework and example</h2><a href="./index.html" target="_blank" rel="noopener noreferrer">Open separately ↗</a></div>
-  <iframe src="./index.html" title="Interactive DT framework with component and relationship explanations" loading="eager"></iframe>
+  <iframe src="./index.html?compact=1" title="Interactive DT framework with component and relationship explanations" loading="eager"></iframe>
  </section>
  <section class="panel is-active" id="questionnaire-panel" aria-labelledby="questionnaire-title">
   <div class="panel-head"><h2 id="questionnaire-title">Evaluation questionnaire — Round 1</h2><a href="https://tally.so/r/VLRDQ6" target="_blank" rel="noopener noreferrer">Open separately ↗</a></div>
