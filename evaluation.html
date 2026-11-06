@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>DT Framework Expert Evaluation</title>
+<style>
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:Arial,Helvetica,sans-serif;color:#182c3b;background:#f4f7f9;display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+header{flex:none;background:#fff;border-bottom:1px solid #d5e0e7;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+h1{font-size:18px;line-height:1.3;margin:0;color:#155b78}
+header p{font-size:12px;color:#506674;margin:3px 0 0}
+.fallback{font-size:12px;white-space:nowrap;color:#155b78}
+a:focus-visible,button:focus-visible{outline:3px solid #147da6;outline-offset:3px}
+main{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}
+.panel{min-width:0;min-height:0;display:flex;flex-direction:column;background:white;border:1px solid #cbdbe5;border-radius:8px;overflow:hidden}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 12px;flex:none;border-bottom:1px solid #dce5eb;background:#f9fbfc}
+h2{font-size:14px;margin:0;color:#155b78}
+.panel-head a{font-size:12px;color:#155b78;white-space:nowrap}
+iframe{display:block;border:0;width:100%;flex:1;min-height:0;background:#fff}
+nav{display:none}
+.mobile-note{display:none}
+@media(max-width:1100px){
+ header{padding:10px 12px}h1{font-size:16px}header>.fallback{display:none}header p{display:none}
+ nav{display:flex;gap:6px;padding:8px 10px 0;flex:none}
+ nav button{flex:1;min-height:42px;padding:9px;border:1px solid #a2bccb;border-radius:6px;background:#fff;color:#155b78;font-size:14px;font-weight:700;cursor:pointer}
+ nav button[aria-selected="true"]{background:#155b78;color:#fff;border-color:#155b78}
+ main{display:block;padding:8px 10px 10px}
+ .panel{height:100%;display:none}.panel.is-active{display:flex}
+ .mobile-note{display:block;margin:6px 12px 0;font-size:12px;line-height:1.3;color:#506674;flex:none}
+}
+</style>
+</head>
+<body>
+<header>
+ <div><h1>DT Framework Expert Evaluation</h1><p>Consult the interactive framework while completing the questionnaire. Each panel scrolls independently.</p></div>
+ <a class="fallback" href="https://tally.so/r/VLRDQ6" target="_blank" rel="noopener noreferrer">Open questionnaire separately ↗</a>
+</header>
+<nav role="tablist" aria-label="Framework and questionnaire panels">
+ <button type="button" id="tab-framework" role="tab" aria-controls="framework-panel" aria-selected="false" tabindex="-1">Framework</button>
+ <button type="button" id="tab-questionnaire" role="tab" aria-controls="questionnaire-panel" aria-selected="true" tabindex="0">Questionnaire</button>
+</nav>
+<p class="mobile-note">Switch between Framework and Questionnaire here. Switching keeps the questionnaire open.</p>
+<main>
+ <section class="panel" id="framework-panel" aria-labelledby="framework-title">
+  <div class="panel-head"><h2 id="framework-title">Interactive framework and example</h2><a href="./index.html" target="_blank" rel="noopener noreferrer">Open separately ↗</a></div>
+  <iframe src="./index.html" title="Interactive DT framework with component and relationship explanations" loading="eager"></iframe>
+ </section>
+ <section class="panel is-active" id="questionnaire-panel" aria-labelledby="questionnaire-title">
+  <div class="panel-head"><h2 id="questionnaire-title">Evaluation questionnaire — Round 1</h2><a href="https://tally.so/r/VLRDQ6" target="_blank" rel="noopener noreferrer">Open separately ↗</a></div>
+  <iframe src="https://tally.so/embed/VLRDQ6?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1" title="DT Framework Expert Evaluation — Round 1 questionnaire" loading="eager" allow="fullscreen"></iframe>
+ </section>
+</main>
+<script>
+'use strict';
+// The form stays mounted when panels are switched; no answers are read or stored by this page.
+const names=['framework','questionnaire'];
+let active='questionnaire';
+const narrow=window.matchMedia('(max-width:1100px)');
+function update(){
+ names.forEach(name=>{
+  const selected=name===active;
+  const panel=document.getElementById(name+'-panel');
+  panel.classList.toggle('is-active',selected);
+  panel.setAttribute('aria-hidden',String(narrow.matches&&!selected));
+  const tab=document.getElementById('tab-'+name);
+  tab.setAttribute('aria-selected',String(selected));
+  tab.tabIndex=selected?0:-1;
+ });
+}
+names.forEach(name=>{
+ const tab=document.getElementById('tab-'+name);
+ tab.addEventListener('click',()=>{active=name;update();});
+ tab.addEventListener('keydown',event=>{
+  if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
+   event.preventDefault();
+   active=event.key==='Home'?'framework':event.key==='End'?'questionnaire':active==='framework'?'questionnaire':'framework';
+   update();document.getElementById('tab-'+active).focus();
+  }
+ });
+});
+if(narrow.addEventListener)narrow.addEventListener('change',update);else narrow.addListener(update);
+update();
+</script>
+</body>
+</html>
